@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:id="@+id/toolbar"
+    android:elevation="4dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <ImageButton
+        android:id="@+id/backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center"
+
+        />
+
+    <TextView
+        android:id="@+id/texttoolbar"
+        android:paddingLeft="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Password Details"
+        android:textColor="#FFFFFF"
+        android:fontFamily="casual"
+        android:layout_weight="1"
+        android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</Toolbar>
