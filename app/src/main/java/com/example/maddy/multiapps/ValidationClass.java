@@ -20,7 +20,7 @@ public class ValidationClass {
 
 
 
-    private static boolean checkPassword(String password){
+    public static boolean checkPassword(String password){
         if(password.length()>3 && password.length()<31){
             return true;
         }
@@ -28,8 +28,8 @@ public class ValidationClass {
             return false;
     }
 
-    private static boolean checkApplicationType(String application){
-        if(application.length()>1 && application.length()<31){
+    public static boolean checkApplicationType(String application){
+        if(application.length()>2 && application.length()<31){
             return true;
         }
         else
@@ -38,8 +38,8 @@ public class ValidationClass {
 
 
 
-    private static boolean checkEmail(String email){
-        if(email.length()>3 && email.length()<31){
+    public static boolean checkEmail(String email){
+        if(email.length()>3 && email.length()<50){
             return true;
         }
         else
@@ -76,7 +76,6 @@ public class ValidationClass {
         SQLiteDatabase sql = ProcessData.getReadable(context);
 
         Cursor c = sql.rawQuery("Select * from PASSWORD where applicationType = ? and email = ?", new String[] {applicationType,email});
-        ProcessData.printvalue(context,String.valueOf(c.getCount()));
         if(c.getCount() > 0){
             return false;
         }

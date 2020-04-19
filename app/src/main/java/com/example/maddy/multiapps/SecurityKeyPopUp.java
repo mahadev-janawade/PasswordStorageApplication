@@ -45,10 +45,7 @@ public class SecurityKeyPopUp extends Activity {
 
         Intent intent = getIntent();
         String value = intent.getStringExtra("message");
-        if(value=="" || value== null) {
-            ProcessData.printvalue(getApplicationContext(), value);
-            ((TextView) findViewById(R.id.messageSecurity)).setText(value);
-        }
+        ((TextView) findViewById(R.id.messageSecurity)).setText(value);
 
         Button b1;
         Button b2;
@@ -128,6 +125,5 @@ public class SecurityKeyPopUp extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 }

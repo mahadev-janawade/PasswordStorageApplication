@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:id="@+id/parentLinearLayoutKeyPopup"
+
     >
 
     <LinearLayout
@@ -24,7 +25,13 @@
         android:id="@+id/securityKey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:background="@drawable/curved_edge"
+        android:paddingLeft="10sp"
+        android:paddingTop="4sp"
+        android:paddingBottom="2sp"
+        android:paddingRight="10sp"
+        />
 
     <TextView
         android:id="@+id/securityKeyspan"

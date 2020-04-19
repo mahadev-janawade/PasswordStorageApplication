@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical">
+
+    <include
+        android:id="@+id/app_bar1"
+        layout="@layout/tool_bar" />
+
+<ScrollView
      android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+   >
 
-    <TextView
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="cursive"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:id="@+id/title"/>
+        android:orientation="vertical"
+        android:background="@drawable/curved_edge"
+        android:paddingLeft="20sp"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+        android:paddingRight="20sp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:id="@+id/tv0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Application : "
+
             />
 
         <TextView
@@ -40,32 +60,46 @@
             android:id="@+id/application"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:completionThreshold="1"/>
+            android:completionThreshold="1"
+            android:background="@drawable/curved_edge"
+            android:paddingLeft="10sp"
+            android:paddingTop="4sp"
+            android:paddingBottom="2sp"
+            android:paddingRight="10sp"
+            />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="visible"
+        >
 
         <TextView
             android:id="@+id/idspan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FD8484"
-            android:text="**field required... Max. 30 characters."
+            android:text="Field required... Min. 3 characters, Max. 30 characters."
             android:paddingLeft="20sp"
+            android:gravity="center"
             />
 
     </LinearLayout>
+    </LinearLayout>
 
 
-    <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:id="@+id/tv1"
@@ -77,14 +111,30 @@
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/curved_edge"
+            android:paddingLeft="10sp"
+            android:paddingTop="4sp"
+            android:paddingBottom="2sp"
+            android:paddingRight="10sp"
+            />
 
     </LinearLayout>
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp">
 
 
         <TextView
@@ -104,7 +154,19 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:background="@drawable/curved_edge"
+            android:paddingLeft="10sp"
+            android:paddingTop="4sp"
+            android:paddingBottom="2sp"
+            android:paddingRight="10sp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailCheckbox" android:orientation="vertical">
 
     </LinearLayout>
     <LinearLayout
@@ -114,15 +176,23 @@
 
         <TextView
             android:id="@+id/emailspan"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FD8484"
-            android:text="**field required... Max. 30 characters."
+            android:text="Field required... Min.3 characters, Max. 30 characters."
             android:paddingLeft="20sp"
+            android:gravity="center"
             />
 
     </LinearLayout>
+</LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -146,7 +216,13 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:background="@drawable/curved_edge"
+            android:paddingLeft="10sp"
+            android:paddingTop="4sp"
+            android:paddingBottom="2sp"
+            android:paddingRight="10sp"
+            />
 
     </LinearLayout>
 
@@ -157,15 +233,23 @@
 
         <TextView
             android:id="@+id/passwordspan"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FD8484"
-            android:text="**field required... Max. 30 characters."
+            android:text="Field required...Min. 3 characters, Max. 30 characters."
             android:paddingLeft="20sp"
+            android:gravity="center"
             />
 
     </LinearLayout>
+</LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -184,9 +268,24 @@
             android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:background="@drawable/curved_edge"
+            android:paddingLeft="10sp"
+            android:paddingTop="4sp"
+            android:paddingBottom="2sp"
+            android:paddingRight="10sp"
+            />
 
     </LinearLayout>
+            </LinearLayout>
+
+
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp">
 
 
     <LinearLayout
@@ -205,10 +304,24 @@
         <EditText
             android:id="@+id/description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/curved_edge"
+            android:paddingLeft="10sp"
+            android:paddingTop="4sp"
+            android:paddingBottom="2sp"
+            android:paddingRight="10sp"
+            />
+
+        </LinearLayout>
 
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -237,9 +350,15 @@
             android:paddingLeft="20sp"
             />
 
-
+</LinearLayout>
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -266,53 +385,83 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20sp"
             />
-
+</LinearLayout>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20sp">
-
-
-        <TextView
-            android:id="@+id/tv6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Security Number : "
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*"
-            android:textColor="#FD8484"
-            />
-
-        <EditText
-            android:id="@+id/security"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/securityKeyChange">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="20sp"
+                        >
+                            <TextView
+                                android:id="@+id/tv6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Security Number : "
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*"
+                                android:textColor="#FD8484"
+                                />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible">
+                            <EditText
+                                android:id="@+id/security"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:background="@drawable/curved_edge"
+                                android:paddingLeft="10sp"
+                                android:paddingTop="4sp"
+                                android:paddingBottom="2sp"
+                                android:paddingRight="10sp"/>
 
-        <TextView
-            android:id="@+id/securityspan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FD8484"
-            android:text="**field required... Security Pin is important. Remember the Security pin. Set 4-6 digit security pin."
-            android:paddingLeft="20sp"
-            />
+                    </LinearLayout>
 
-    </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/secuityCheckBox"
+                android:orientation="vertical">
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    >
+                    <TextView
+                        android:id="@+id/securityspan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FD8484"
+                        android:text="Field required... Security Pin is important. Remember the Security pin. Set 4-6 digit security pin."
+                        android:paddingLeft="20sp"
+                        android:gravity="center"
+                        />
+
+            </LinearLayout>
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -330,10 +479,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
-
-
     </LinearLayout>
 
+    </LinearLayout>
+</LinearLayout>
 </LinearLayout>
 
-</ScrollView>
+</ScrollView></LinearLayout>

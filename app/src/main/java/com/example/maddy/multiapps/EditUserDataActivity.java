@@ -4,11 +4,19 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -17,7 +25,7 @@ import java.util.Calendar;
  * Created by Maddy on 3/27/2020.
  */
 
-public class EditUserDataActivity extends Activity {
+public class EditUserDataActivity extends AppCompatActivity {
 
     Calendar calender;
     TextView title;
@@ -34,11 +42,19 @@ public class EditUserDataActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userdetails);
 
-        title = (TextView) findViewById(R.id.title);
-        title.setText("Edit Details");
+        getSupportActionBar().hide();
+        findViewById(R.id.app_bar1).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.texttoolbar)).setText("Edit Details");
+
+        ((ImageButton)findViewById(R.id.backbutton)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         button1 = (Button) findViewById(R.id.button);
-        button1.setText("Edit");
+        button1.setText("Update");
         button2 = (Button) findViewById(R.id.clear);
         button2.setText("Back");
 
@@ -57,12 +73,77 @@ public class EditUserDataActivity extends Activity {
 
         email = (EditText)findViewById(R.id.email);
         email.setText(userDetails.email);
+        email.setEnabled(false);
+        CheckBox emailCheckBox = new CheckBox(this);
+        emailCheckBox.setText("Not Recommended to change email");
+        ((LinearLayout)findViewById(R.id.emailCheckbox)).addView(emailCheckBox);
+        emailCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    email.setEnabled(true);
+                }else{
+                    email.setEnabled(false);
+                }
+            }
+        });
+        if(!ValidationClass.checkEmail(userDetails.email)) {
+            findViewById(R.id.emailspan).setVisibility(View.VISIBLE);
+        }
+        else{
+            findViewById(R.id.emailspan).setVisibility(View.INVISIBLE);
+        }
+        ((EditText) findViewById(R.id.email)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        TextView viewEmail = (TextView)findViewById(R.id.emailspan);
-        viewEmail.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!ValidationClass.checkEmail(charSequence.toString())) {
+                    findViewById(R.id.emailspan).setVisibility(View.VISIBLE);
+                }
+                else{
+                    findViewById(R.id.emailspan).setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         password = (EditText)findViewById(R.id.password);
         password.setText(userDetails.password);
+        if(!ValidationClass.checkPassword(userDetails.password)) {
+            findViewById(R.id.passwordspan).setVisibility(View.VISIBLE);
+        }
+        else{
+            findViewById(R.id.passwordspan).setVisibility(View.INVISIBLE);
+        }
+        ((EditText) findViewById(R.id.password)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!ValidationClass.checkPassword(charSequence.toString())) {
+                    findViewById(R.id.passwordspan).setVisibility(View.VISIBLE);
+                }
+                else{
+                    findViewById(R.id.passwordspan).setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         description = (EditText)findViewById(R.id.description);
         description.setText(userDetails.description);
@@ -71,10 +152,48 @@ public class EditUserDataActivity extends Activity {
         number.setText(userDetails.number);
 
         security = (EditText)findViewById(R.id.security);
+        security.setText(userDetails.securityKey);
         security.setEnabled(false);
-        TextView viewSecurity = (TextView)findViewById(R.id.securityspan);
-        viewSecurity.setVisibility(View.GONE);
+        CheckBox securityCheckBox = new CheckBox(this);
+        securityCheckBox.setText("Not Recommended to change Secuirty");
+        ((LinearLayout)findViewById(R.id.secuityCheckBox)).addView(securityCheckBox);
+        securityCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    security.setEnabled(true);
+                }else{
+                    security.setEnabled(false);
+                }
+            }
+        });
+        if(!ValidationClass.checkSecurityKey(userDetails.securityKey)) {
+            findViewById(R.id.securityspan).setVisibility(View.VISIBLE);
+        }
+        else{
+            findViewById(R.id.securityspan).setVisibility(View.INVISIBLE);
+        }
+        ((EditText) findViewById(R.id.security)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!ValidationClass.checkSecurityKey(charSequence.toString())) {
+                    findViewById(R.id.securityspan).setVisibility(View.VISIBLE);
+                }
+                else{
+                    findViewById(R.id.securityspan).setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         securitykey = intent.getStringExtra("KeySecurity");
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -91,16 +210,12 @@ public class EditUserDataActivity extends Activity {
                 editedUserDetails.setDescription(((EditText)view.findViewById(R.id.description)).getText().toString());
                 editedUserDetails.setPasswordCreatedDate(((TextView)view.findViewById(R.id.passwordCreatedDate)).getText().toString());
                 editedUserDetails.setPasswordExpiryDate(((TextView)view.findViewById(R.id.passwordExpiryDate)).getText().toString());
-                editedUserDetails.setSecurityKey(userDetails.securityKey);
+                editedUserDetails.setSecurityKey(((EditText)view.findViewById(R.id.security)).getText().toString());
 
                 boolean checks = ValidationClass.checksAdd(editedUserDetails,getApplicationContext());
                 if(checks) {
 
-                    if(userDetails.email.equals(editedUserDetails.email)){
-
-                    }
-
-                    boolean add_status = ProcessData.editDetails(editedUserDetails, securitykey, getApplicationContext());
+                    boolean add_status = ProcessData.editDetails(editedUserDetails, getApplicationContext());
                     if (add_status == true) {
                         ProcessData.printvalue(getApplicationContext(), "Database updated!!");
                         finish();
@@ -118,6 +233,9 @@ public class EditUserDataActivity extends Activity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),ViewPageActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -131,7 +249,7 @@ public class EditUserDataActivity extends Activity {
             public void onClick(View view) {
 
                 calender = Calendar.getInstance();
-                int month = calender.get(Calendar.MONTH);
+                int month = (calender.get(Calendar.MONTH))+1;
                 int day = calender.get(Calendar.DAY_OF_MONTH);
                 int year = calender.get(Calendar.YEAR);
 
@@ -156,7 +274,7 @@ public class EditUserDataActivity extends Activity {
             public void onClick(View view) {
 
                 calender = Calendar.getInstance();
-                int month = calender.get(Calendar.MONTH);
+                int month = (calender.get(Calendar.MONTH))+1;
                 int day = calender.get(Calendar.DAY_OF_MONTH);
                 int year = calender.get(Calendar.YEAR);
 
@@ -177,6 +295,14 @@ public class EditUserDataActivity extends Activity {
     protected void onStop() {
         super.onStop();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,ViewPageActivity.class);
+        startActivity(intent);
+        finish();
+        super.onBackPressed();
     }
 
     @Override

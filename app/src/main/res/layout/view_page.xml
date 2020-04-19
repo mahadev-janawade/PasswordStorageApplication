@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical">
 
     <include
         android:id="@+id/app_bar"
         layout="@layout/tool_bar"
         />
 
-    <TextView
-        android:id="@+id/textDraw"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Details"
-        android:textSize="30sp"
-        android:fontFamily="cursive"
-        android:gravity="center"
-        android:paddingBottom="20sp"/>
+        android:layout_height="match_parent"
+    >
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/textDraw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Details"
+                android:textSize="30sp"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:paddingBottom="20sp"/>
 
 
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

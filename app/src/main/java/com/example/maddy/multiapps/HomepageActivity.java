@@ -1,6 +1,7 @@
 package com.example.maddy.multiapps;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,18 +34,44 @@ public class HomepageActivity extends Activity {
             }
         }
 
+        if(requestCode == 2){
+            if(data.getStringExtra("result").equals("yes")){
+                if(!sharedPreferences.getBoolean("terms_conditions",false)){
+                    Intent intent = new Intent(this,TermsConditions.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    setContentView(R.layout.password_homepage);
+                    l = (LinearLayout) findViewById(R.id.homepage);
+                    LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    l.setLayoutParams(p);
+                    create();
+                }
+            }
+            else if(data.getStringExtra("result").equals("no")){
+                Intent intent = new Intent(this,HomepageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+        if(requestCode == 3) {
+            if(data.getStringExtra("result").equals("yes")) {
+                l.setAlpha(0.5f);
+                Intent intent = new Intent(getApplicationContext(), SecurityKeyPopUp.class);
+                intent.putExtra("message", "Please set default securityKey...");
+                intent.putExtra("cancelButton", "no");
+                startActivityForResult(intent, 1);
+            }
+            else if(data.getStringExtra("result").equals("no")){
+                Intent intent = new Intent(this,HomepageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
-    @Override
-    protected void onCreate( Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.password_homepage);
-
-        l = (LinearLayout) findViewById(R.id.homepage);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        l.setLayoutParams(p);
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    public void create(){
         if(!sharedPreferences.getBoolean("createDefaultSecurityKey",false)){
             l.setAlpha(0.5f);
             editor = sharedPreferences.edit();
@@ -55,8 +82,6 @@ public class HomepageActivity extends Activity {
             intent.putExtra("cancelButton","no");
             startActivityForResult(intent,1);
         }
-
-
 
         findViewById(R.id.addPasswordButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,12 +102,66 @@ public class HomepageActivity extends Activity {
         findViewById(R.id.defaultSecuityKeyButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                l.setAlpha(0.5f);
-                Intent intent = new Intent(getApplicationContext(),SecurityKeyPopUp.class);
-                intent.putExtra("message","Please set default securityKey...");
-                startActivityForResult(intent,1);
+                Intent intent = new Intent(getApplicationContext(),FingerprintAuth.class);
+                startActivityForResult(intent,3);
+
             }
         });
 
+        findViewById(R.id.applyDefaultSecuityKeyButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ApplyDefaultSecurity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onCreate( Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent intent1 = new Intent(this,ServiceClass.class);
+        startService(intent1);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(!sharedPreferences.getBoolean("fingerprintAuth",false)){
+            Intent intent = new Intent(this,FingerprintAuth.class);
+            startActivityForResult(intent,2);
+        } else if(!sharedPreferences.getBoolean("terms_conditions",false)){
+            Intent intent = new Intent(this,TermsConditions.class);
+            startActivity(intent);
+            finish();
+        }
+        else{
+            setContentView(R.layout.password_homepage);
+            l = (LinearLayout) findViewById(R.id.homepage);
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            l.setLayoutParams(p);
+            create();
+        }
+    }
+/*
+    @Override
+    protected void onResume() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(!sharedPreferences.getBoolean("fingerprintAuth",false)){
+            Intent intent = new Intent(this,FingerprintAuth.class);
+            startActivityForResult(intent,2);
+        } else if(!sharedPreferences.getBoolean("terms_conditions",false)){
+            Intent intent = new Intent(this,TermsConditions.class);
+            startActivity(intent);
+            finish();
+        }
+        else{
+            create();
+        }
+        super.onResume();
+    }*/
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

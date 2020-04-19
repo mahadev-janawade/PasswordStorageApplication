@@ -40,6 +40,18 @@ public class ProcessData {
         return sql;
     }
 
+    public static SQLiteDatabase getWriteableSecurity(Context context){
+        MainDB securityHelper = new MainDB(context);
+        SQLiteDatabase sql = securityHelper.getWritableDatabase();
+        return sql;
+    }
+
+    public static SQLiteDatabase getReadableSecurity(Context context){
+        MainDB securityHelper = new MainDB(context);
+        SQLiteDatabase sql = securityHelper.getReadableDatabase();
+        return sql;
+    }
+
 
     public static String Encrypt(String data,String securityKey)
     {
@@ -101,7 +113,7 @@ public class ProcessData {
         long row1 = sqlApp.insert("APPLICATION",null,contentValuesApp);
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("id",ProcessData.Encrypt(userDetails.id,userDetails.securityKey));
+        contentValues.put("id",userDetails.id);
         contentValues.put("applicationType",userDetails.applicationType);
         contentValues.put("email",userDetails.email);
         contentValues.put("username",userDetails.userName);
@@ -114,6 +126,12 @@ public class ProcessData {
 
         long row = sql.insert("PASSWORD", null, contentValues);
 
+        SQLiteDatabase sqlSecurity = getWriteableSecurity(context);
+        ContentValues contentValuesSecurity = new ContentValues();
+        contentValuesSecurity.put("id",userDetails.id);
+        contentValuesSecurity.put("securityKey",userDetails.securityKey);
+        long row2 = sqlSecurity.insert("SECURITY",null,contentValuesSecurity);
+
         if(row == -1){
             return false;
         }
@@ -122,9 +140,10 @@ public class ProcessData {
     }
 
 
-    public static boolean editDetails(UserDetails userDetails, String securityKey, Context context) {
+    public static boolean editDetails(UserDetails userDetails, Context context) {
         SQLiteDatabase sql = getWriteable(context);
 
+        String securityKey = userDetails.securityKey;
         try {
             sql.execSQL("UPDATE PASSWORD SET username='" + userDetails.userName
                     + "' , email='" + userDetails.email
@@ -135,7 +154,12 @@ public class ProcessData {
                     + "' , passwordcreatedDate='" + ProcessData.Encrypt(userDetails.passwordCreatedDate, securityKey)
                     + "' , passwordExpiryDate='" + ProcessData.Encrypt(userDetails.passwordExpiryDate, securityKey)
                     + "' , securityKey='" + ProcessData.Encrypt(userDetails.securityKey, securityKey)
-                    + "' WHERE ID='" + ProcessData.Encrypt(userDetails.id, securityKey) + "'");
+                    + "' WHERE ID='" + userDetails.id + "'");
+
+            SQLiteDatabase sqlSecurity = getWriteableSecurity(context);
+            ContentValues contentValuesSecurity = new ContentValues();
+            contentValuesSecurity.put("securityKey",userDetails.securityKey);
+            long row2 = sqlSecurity.update("SECURITY",contentValuesSecurity,"id=?",new String[] {userDetails.id});
             return true;
         }
         catch (Exception e){

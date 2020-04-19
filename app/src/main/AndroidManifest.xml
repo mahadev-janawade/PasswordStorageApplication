@@ -2,12 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.maddy.multiapps">
 
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Secure Store"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service android:name=".ServiceClass"/>
+        <activity android:name=".FingerprintAuth">
+
+        </activity>
+
+        <activity android:name=".ApplyDefaultSecurity">
+
+        </activity>
+
+        <activity android:name=".TermsConditions"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
 
         <activity android:name=".AddUserActivity"
             />
@@ -17,8 +31,7 @@
         <activity android:name=".EditUserDataActivity"/>
 
         <activity android:name=".HomepageActivity"
-            android:theme="@style/AppTheme.CustomTheme"
-            >
+            android:theme="@style/AppTheme.CustomTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
