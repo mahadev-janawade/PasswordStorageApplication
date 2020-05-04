@@ -3,6 +3,8 @@ package com.example.maddy.multiapps;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -215,12 +217,31 @@ public class EditUserDataActivity extends AppCompatActivity {
                 boolean checks = ValidationClass.checksAdd(editedUserDetails,getApplicationContext());
                 if(checks) {
 
-                    boolean add_status = ProcessData.editDetails(editedUserDetails, getApplicationContext());
-                    if (add_status == true) {
-                        ProcessData.printvalue(getApplicationContext(), "Database updated!!");
-                        finish();
-                    } else {
-                        ProcessData.printvalue(getApplicationContext(), "Unable to store the edited details!!");
+                    boolean emailStatus = false;
+                    if(!userDetails.email.equals(editedUserDetails.email)){
+                        SQLiteDatabase sql = ProcessData.getReadable(getApplicationContext());
+                        Cursor c = sql.rawQuery("Select id from Password where applicationType=? and email=?",new String[]{editedUserDetails.applicationType,editedUserDetails.email});
+                        if(c.getCount()>0){
+                            emailStatus = false;
+                        }else
+                        {
+                            emailStatus = true;
+                        }
+                    }
+                    else{
+                        emailStatus = true;
+                    }
+                    if(emailStatus) {
+                        boolean add_status = ProcessData.editDetails(editedUserDetails, getApplicationContext());
+                        if (add_status == true) {
+                            ProcessData.printvalue(getApplicationContext(), "Database updated!!");
+                            finish();
+                        } else {
+                            ProcessData.printvalue(getApplicationContext(), "Unable to store the edited details!!");
+                        }
+                    }
+                    else{
+                        ProcessData.printvalue(getApplicationContext(), "Email already used for this application!!");
                     }
                 }
                 else {
@@ -249,7 +270,7 @@ public class EditUserDataActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 calender = Calendar.getInstance();
-                int month = (calender.get(Calendar.MONTH))+1;
+                int month = (calender.get(Calendar.MONTH));
                 int day = calender.get(Calendar.DAY_OF_MONTH);
                 int year = calender.get(Calendar.YEAR);
 
@@ -258,7 +279,7 @@ public class EditUserDataActivity extends AppCompatActivity {
 
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        passwordCreated.setText(year+"/"+month+"/"+day);
+                        passwordCreated.setText(year+"/"+(month+1)+"/"+day);
                     }
                 }, year, month, day);
                 dialog.show();
@@ -274,7 +295,7 @@ public class EditUserDataActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 calender = Calendar.getInstance();
-                int month = (calender.get(Calendar.MONTH))+1;
+                int month = (calender.get(Calendar.MONTH));
                 int day = calender.get(Calendar.DAY_OF_MONTH);
                 int year = calender.get(Calendar.YEAR);
 
@@ -283,7 +304,7 @@ public class EditUserDataActivity extends AppCompatActivity {
 
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        passwordExpiry.setText(year+"/"+month+"/"+day);
+                        passwordExpiry.setText(year+"/"+(month+1)+"/"+day);
                     }
                 }, year, month, day);
                 dialog.show();

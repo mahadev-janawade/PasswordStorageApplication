@@ -261,16 +261,16 @@ public class AddUserActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 calender = Calendar.getInstance();
-                int month = (calender.get(Calendar.MONTH))+1;
+
+                int month = (calender.get(Calendar.MONTH));
                 int day = calender.get(Calendar.DAY_OF_MONTH);
                 int year = calender.get(Calendar.YEAR);
-
 
                 DatePickerDialog dialog = new DatePickerDialog(AddUserActivity.this, new DatePickerDialog.OnDateSetListener(){
 
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        passwordCreated.setText(year+"/"+month+"/"+day);
+                        passwordCreated.setText(year+"/"+(month+1)+"/"+day);
                     }
                 }, year, month, day);
                 dialog.show();
@@ -285,7 +285,7 @@ public class AddUserActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 calender = Calendar.getInstance();
-                int month = (calender.get(Calendar.MONTH))+1;
+                int month = (calender.get(Calendar.MONTH));
                 int day = calender.get(Calendar.DAY_OF_MONTH);
                 int year = calender.get(Calendar.YEAR);
 
@@ -294,7 +294,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        passwordExpiry.setText(year+"/"+month+"/"+day);
+                        passwordExpiry.setText(year+"/"+(month+1)+"/"+day);
                     }
                 }, year, month, day);
                 dialog.show();

@@ -157,7 +157,7 @@ public class ViewPageActivity extends AppCompatActivity {
                             int appDel = delUniqueApplications.delete("APPLICATION", "application=?", new String[]{applicationToDelete});
                         }
                         SQLiteDatabase sqlSecurity = ProcessData.getWriteableSecurity(getApplicationContext());
-                        int isSecDel = sql.delete("SECURITY", "id=?", new String[]{emailToDelete});
+                        int isSecDel = sqlSecurity.delete("SECURITY", "id=?", new String[]{emailToDelete});
                     }
                     Intent i = new Intent(getApplicationContext(), ViewPageActivity.class);
                     startActivity(i);
